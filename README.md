@@ -1,4 +1,4 @@
-# SuperconductorTvPredictor
+# SuperconductorTcPredictor
 
 Data science project with the Superconductivty data set
 
