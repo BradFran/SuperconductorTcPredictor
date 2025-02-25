@@ -1,5 +1,5 @@
 def main():
-    print("Hello from dpp-project!")
+    print("Hello from SuperconductorTcPredictor!")
 
 
 if __name__ == "__main__":
