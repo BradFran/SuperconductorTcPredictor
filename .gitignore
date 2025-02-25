@@ -172,3 +172,13 @@ cython_debug/
 
 # ignore data set folder, 28mb
 /data
+
+# ignore backup folder
+/backup
+
+# ignore output folder
+/output
+
+# ignore .csv and .pkl files generated and accidentally left in the project main folder
+*.csv
+*.pkl
