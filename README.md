@@ -10,7 +10,7 @@ An attempt to improve RMSE and R2 scores using feature selection, feature engine
 
 Using: UV, Venv, Git, GitHub, Python, Jupyter Notebooks
 
-Modules: Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, Optuna
+Modules: Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatNppst, Optuna
 
 Python 3.12
 
