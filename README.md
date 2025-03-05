@@ -20,13 +20,21 @@ Organization of project:
 The project is iterative and (dis)organized in Jupyter Notebooks(.ipynb).
 
 NB 1 - Exploratory Data Analysis
+
 NB 2 - Recreating and testing the original author's model
+
 NB 3 - Model selection
+
 NB 4 - Feature evaluation and selection
+
 NB 5 - Model optimization
+
 NB 6 - Feature engineering
+
 NB 7 - Learning curves for selected models
+
 NB 8 - Ensembling of models
+
 NB 9 - Final model selection and testing
 
 
