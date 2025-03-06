@@ -6,7 +6,7 @@ from xgboost import XGBRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 
-def run_model(n_runs=25, initial_seed=42):
+def run_model(n_runs=25, initial_seed=42, test_size=0.33):
     # Check if the CSV file exists
     csv_path = "./data/train.csv"
     if not os.path.exists(csv_path):
@@ -31,15 +31,15 @@ def run_model(n_runs=25, initial_seed=42):
     )
 
     # Print a message indicating the experiment parameters
-    print(f"Evaluating the author's original model with {n_runs} runs using a random seed of {initial_seed}\n")
+    print(f"\nEvaluating the author's original model:\n Runs: {n_runs}\n Random seed: {initial_seed}\n Test size: {100*test_size:.2f}%\n")
 
     rmse_list = []
     r2_list = []
 
     for i in range(n_runs):
-        # Perform a 66/33 random split; vary the random_state for each iteration
+        # Perform random split according to provided test_size
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.33, random_state=initial_seed + i
+            X, y, test_size=test_size, random_state=initial_seed + i
         )
 
         # Fit the model on the training set
@@ -61,23 +61,33 @@ def run_model(n_runs=25, initial_seed=42):
     avg_r2 = np.mean(r2_list)
     
     # Print a summary message before displaying average values
-    print(f"\nAuthor's original model with {n_runs} runs using a random seed of {initial_seed}\n")
+    print(f"\nAuthor's original model using a test size of {test_size:.2f} and random seed of {initial_seed}")
     print(f"Average RMSE over {n_runs} runs: {avg_rmse:.4f}\n")
     print(f"Average R² over {n_runs} runs: {avg_r2:.4f}\n")
 
     return avg_rmse, avg_r2
 
 if __name__ == "__main__":
+    # Prompt user for the test size percentage
+    try:
+        test_percentage_input = input("Enter the percentage of the data set reserved for testing (default 33): ")
+        test_percentage = int(test_percentage_input) if test_percentage_input.strip() != "" else 33
+    except ValueError:
+        test_percentage = 33
+    test_size = test_percentage / 100.0
+
+    # Prompt user for the number of tests to run
     try:
         n_runs_input = input("Enter the number of tests to run (default 25): ")
         n_runs = int(n_runs_input) if n_runs_input.strip() != "" else 25
     except ValueError:
         n_runs = 25
 
+    # Prompt user for the initial random seed
     try:
         seed_input = input("Enter the initial random seed (default 42): ")
         initial_seed = int(seed_input) if seed_input.strip() != "" else 42
     except ValueError:
         initial_seed = 42
 
-    run_model(n_runs, initial_seed)
+    run_model(n_runs, initial_seed, test_size)
