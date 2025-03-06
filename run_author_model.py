@@ -6,8 +6,6 @@ from xgboost import XGBRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 
-# function to run the model
-
 def run_model(n_runs=25, initial_seed=42):
     # Check if the CSV file exists
     csv_path = "./data/train.csv"
@@ -31,6 +29,9 @@ def run_model(n_runs=25, initial_seed=42):
         random_state=initial_seed,
         objective='reg:squarederror'
     )
+
+    # Print a message indicating the experiment parameters
+    print(f"Evaluating the author's original model with {n_runs} runs using a random seed of {initial_seed}\n")
 
     rmse_list = []
     r2_list = []
@@ -58,17 +59,17 @@ def run_model(n_runs=25, initial_seed=42):
 
     avg_rmse = np.mean(rmse_list)
     avg_r2 = np.mean(r2_list)
-    print(f"\nAverage RMSE over {n_runs} runs: {avg_rmse:.4f}")
-    print(f"Average R² over {n_runs} runs: {avg_r2:.4f}")
+    
+    # Print a summary message before displaying average values
+    print(f"\nAuthor's original model with {n_runs} runs using a random seed of {initial_seed}\n")
+    print(f"Average RMSE over {n_runs} runs: {avg_rmse:.4f}\n")
+    print(f"Average R² over {n_runs} runs: {avg_r2:.4f}\n")
 
     return avg_rmse, avg_r2
 
-
-# if running from the console, take input from the user
-
 if __name__ == "__main__":
     try:
-        n_runs_input = input("Enter the number of runs (default 25): ")
+        n_runs_input = input("Enter the number of tests to run (default 25): ")
         n_runs = int(n_runs_input) if n_runs_input.strip() != "" else 25
     except ValueError:
         n_runs = 25
