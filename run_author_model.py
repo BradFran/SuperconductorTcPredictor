@@ -1,4 +1,5 @@
 # Python script to run the original author's model from the terminal
+# XGBoost with author's hyperparameters and features from train.csv
 # Accepts user input for number of runs, random seed and test split
 
 import os
@@ -37,7 +38,7 @@ def run_model(n_runs=25, initial_seed=42, test_size=0.33):
     )
 
     # Print user parameters
-    print(f"\nEvaluating the author's original model\n Runs: {n_runs}\n Random seed: {initial_seed}\n Test size: {test_size:.2f}\n")
+    print(f"\nEvaluating the author's original model with original features\n\n Runs: {n_runs}\n Random seed: {initial_seed}\n Test size: {test_size:.2f}\n")
 
     rmse_list = []
     r2_list = []

@@ -6,17 +6,17 @@ Data set from: https://archive.ics.uci.edu/dataset/464/superconductivty+data
 
 Paper at: https://arxiv.org/pdf/1803.10260
 
-##Overview:
+## Overview:
 An attempt to improve RMSE and R2 scores using feature selection, feature engineering, model selection, hyperparameter tuning and enesmbling. Additionally investigate alternate train-test splits and train-test-validate splits for model tuning.
 
-##Tools:
+## Tools:
 
 UV, Venv, Git, GitHub, Python 3.12, Jupyter Notebooks
 
 Modules: Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, PyTest
 
 
-##Organization of project:
+## Organization of project:
 
 The project is iterative and (dis)organized in Jupyter Notebooks (.ipynb).
 
@@ -39,7 +39,7 @@ NB 8 - Ensembling of models
 NB 9 - Final model selection and testing
 
 
-##Discussion of project:
+## Discussion of project:
 
 At present, the project is primarily concerned with creating and evaluating prediction models using machine learning techniques on the existing data set. If improvements are found and prove to be robust and useful, the data set can potentially be updated and expanded to allow for much better predictions or the methods employed could be applied to other, more complete data sets.
 
