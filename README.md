@@ -18,7 +18,7 @@ Modules: Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, Tens
 
 ## Organization of project:
 
-The project is iterative and (dis)organized in Jupyter Notebooks (.ipynb).
+The project is iterative and (dis)organized in Jupyter Notebooks (.ipynb):
 
 NB 1 - Exploratory Data Analysis
 
@@ -37,6 +37,17 @@ NB 7 - Learning curves for selected models
 NB 8 - Ensembling of models
 
 NB 9 - Final model selection and testing
+
+
+Python files:
+
+run_author_model.py - script to evaluate original author's model
+
+run_author_model.py - script to evaluate newly found blended model
+
+tccreate.py - script to create and train final model (placeholder)
+
+tcpredict.py - script to make Tc prediction (placeholder)
 
 
 ## Discussion of project:
