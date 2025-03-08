@@ -41,6 +41,10 @@ NB 9 - Final model selection and testing
 
 Python files:
 
+pyproject.toml - configuration information for dependancies (uv.lock can also be included if needed, but is currently ignored)
+
+download_data.py - script to download the data (palceholder)
+
 run_author_model.py - script to evaluate original author's model
 
 run_author_model.py - script to evaluate newly found blended model
