@@ -7,18 +7,21 @@ Data set from: https://archive.ics.uci.edu/dataset/464/superconductivty+data
 Paper at: https://arxiv.org/pdf/1803.10260
 
 ## Overview:
+
 An attempt to improve RMSE and R2 scores using feature selection, feature engineering, model selection, hyperparameter tuning and enesmbling. Additionally investigate alternate train-test splits and train-test-validate splits for model tuning.
 
 ## Tools:
 
 UV, Venv, Git, GitHub, Python 3.12, Jupyter Notebooks
 
-Modules: Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, PyTest
+### Modules:
+
+Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, PyTest
 
 
 ## Organization of project:
 
-The project is iterative and (dis)organized in Jupyter Notebooks (.ipynb):
+### The project is iterative and (dis)organized in Jupyter Notebooks (.ipynb):
 
 NB 1 - Exploratory Data Analysis
 
@@ -39,13 +42,13 @@ NB 8 - Ensembling of models
 NB 9 - Final model selection and testing
 
 
-Python files:
+### Python files:
 
 pyproject.toml - configuration information for dependancies (uv.lock can also be included if needed, but is currently ignored)
 
 download_data.py - script to download the data (palceholder)
 
-run_author_model.py - script to evaluate original author's model
+run_author_model.py - script to evaluate author's original model
 
 run_author_model.py - script to evaluate newly found blended model
 
@@ -69,3 +72,14 @@ It is important to note that this model cannot determine if a material is a supe
 Root mean square error (RMSE) is the primary metric, with coefficient of determination (R2) being a secondary metric for evaluating models. RMSE is a plus/minus accuracy estimate of the prediction in Kelvin. Currently the best models found by this project provide critical temperature prediction RMSE = 8.8. The training set contains values from 0.00021 to 185.0 Kelvin, with a strong sample bias towards lower temperature superconductors. Thus it cannot be expected that this model will provide accurate or meaningful critical temperature estimates above approximately 125 Kelvin (where the data set begins to tail off). Weather it can realistically determine if a material is likely to have a higher critical temperature or not remains to be seen. See the original 2018 paper cited above for further discussion.
 
 This project is an exercise in machine learning rather than physics.
+
+
+## Plans:
+
+Clean up the project after best model and parameters are found.
+
+Update and simplify notebooks with clear path to the best models, hyperparameters and weights.
+
+Create scrips to download the data, create, train, test and save the model.
+
+Update readme to be more clear and consistent with the finished project.
