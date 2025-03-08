@@ -16,7 +16,7 @@ UV, Venv, Git, GitHub, Python 3.12, Jupyter Notebooks
 
 ### Modules:
 
-Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, PyTest
+Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, requests, PyTest
 
 
 ## Organization of project:
@@ -46,7 +46,7 @@ NB 9 - Final model selection and testing
 
 pyproject.toml - configuration information for dependancies (uv.lock can also be included if needed, but is currently ignored)
 
-download_data.py - script to download the data (palceholder)
+download_data.py - script to download and extract the data from UCI to ./data
 
 run_author_model.py - script to evaluate author's original model
 

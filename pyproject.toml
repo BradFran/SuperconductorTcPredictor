@@ -12,6 +12,7 @@ dependencies = [
     "optuna>=4.2.1",
     "pandas>=2.2.3",
     "pytest>=8.3.5",
+    "requests>=2.32.3",
     "scikit-learn>=1.6.1",
     "seaborn>=0.13.2",
     "tensorflow>=2.18.0",
