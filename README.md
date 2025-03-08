@@ -52,7 +52,7 @@ run_author_model.py - script to evaluate author's original model
 
 run_author_model.py - script to evaluate newly found blended model
 
-tccreate.py - script to create and train final model (placeholder)
+tccreate.py - script to create and train final model
 
 tcpredict.py - script to make Tc prediction (placeholder)
 
@@ -80,6 +80,6 @@ Clean up the project after best model and parameters are found.
 
 Update and simplify notebooks with clear path to the best models, hyperparameters and weights.
 
-Create scrips to download the data, create, train, test and save the model.
+Create script to input chemical forumula and return prediction.
 
 Update readme to be more clear and consistent with the finished project.

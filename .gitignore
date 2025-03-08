@@ -179,6 +179,9 @@ cython_debug/
 # ignore output folder
 /output
 
+# ignore model folder
+/model
+
 # ignore CatBoost folder
 /catboost_info
 
