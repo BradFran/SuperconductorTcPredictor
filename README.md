@@ -8,7 +8,7 @@ Paper at: https://arxiv.org/pdf/1803.10260
 
 ## Overview:
 
-An attempt to improve RMSE and R2 scores using feature selection, feature engineering, model selection, hyperparameter tuning and enesmbling. Additionally investigate alternate train-test splits and train-test-validate splits for model tuning.
+An attempt at improving RMSE and R2 scores for the prediction of critical temperature (Tc) with the data set, using feature selection, feature engineering, model selection, hyperparameter tuning and enesmbling. Additionally investigate alternate train-test splits and train-test-validate splits for model tuning.
 
 ## Tools:
 
@@ -16,7 +16,7 @@ UV, Venv, Git, GitHub, Python 3.12, Jupyter Notebooks
 
 ### Modules:
 
-Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, requests, PyTest
+Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, Requests, PyTest
 
 
 ## Organization of project:
@@ -44,7 +44,7 @@ NB 9 - Final model selection and testing
 
 ### Python files:
 
-pyproject.toml - configuration information for dependancies (uv.lock can also be included if needed, but is currently ignored)
+pyproject.toml - configuration information for dependancies (uv.lock can also be included if needed)
 
 download_data.py - script to download and extract the data from UCI to ./data
 
@@ -78,8 +78,10 @@ This project is an exercise in machine learning rather than physics.
 
 Clean up the project after best model and parameters are found.
 
+Remove no longer needed models and modules.
+
 Update and simplify notebooks with clear path to the best models, hyperparameters and weights.
 
-Create script to input chemical forumula and return prediction.
+Create script to input chemical forumula, create needed features exactly as done with the training data, make and return prediction.
 
 Update readme to be more clear and consistent with the finished project.
