@@ -8,7 +8,7 @@ Paper at: https://arxiv.org/pdf/1803.10260
 
 ## Overview:
 
-An attempt at improving RMSE and R2 scores for the prediction of critical temperature (Tc) with the data set, using feature selection, feature engineering, model selection, hyperparameter tuning and enesmbling. Additionally investigate alternate train-test splits and train-test-validate splits for model tuning.
+An attempt at improving RMSE and R2 scores for the prediction of critical temperature (Tc) using the existing data set. Methods include feature selection, feature engineering, model selection, hyperparameter tuning, enesmbling as well as investigating alternate train-test splits and train-test-validate splits for model tuning.
 
 ## Tools:
 
@@ -52,9 +52,9 @@ run_author_model.py - script to evaluate author's original model
 
 run_author_model.py - script to evaluate newly found blended model
 
-tccreate.py - script to create and train final model
+tccreate.py - script to create, train and save final model to ./model
 
-tcpredict.py - script to make Tc prediction (placeholder)
+tcpredict.py - script to make Tc prediction (in progress - not functional)
 
 
 ## Discussion of project:
