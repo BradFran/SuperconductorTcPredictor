@@ -14,10 +14,9 @@
 #
 # prediction returned to user with +/- RMSE
 
-# example code created as a baseline, needs much work
 # originaly R and CHNOSZ were used to implement this functionality
 
-# I should try to understand and recreate the orignal logic in the feature creation with Python,
+# Recreate the orignal logic used in the feature creation with Python,
 # get the chemical information either from the CHNOSZ library or an equivalent, then test the
 # features created against the aurhors original.
 
@@ -33,14 +32,14 @@
 
 # The below code is after a back and forth with ChatGPT based on my code and requirements. 
 # geting the order of the features to match the engineered 99 features was very tricky
-# 
-# It has not been validated. Values from periodictable likely do not match the original author's valute,
+ 
+# It has not been validated. Values from periodictable likely do not match the original author's values,
 # thus the created features represent a different transform than used on the original data. 
 # It may work as computer code, but doesn't create a prediction with equally handeled train set. 
 # To be clear, the data science in this step doesn't match the date science of the training
 # set... more work needs to be done.
 
-# features vector needs to match training features:
+# features vector needs to match training features exactly:
 
 # features = ['mean_atomic_mass', 'wtd_mean_atomic_mass', 'gmean_atomic_mass',
 #        'entropy_atomic_mass', 'wtd_entropy_atomic_mass', 'range_atomic_mass',
@@ -69,15 +68,15 @@
 #        'mass_density_ratio', 'affinity_valence_ratio',
 #        'log_thermal_conductivity']
 
-# I beleive there are still mistakes in the feature order, especially check the order of elements.
 
-
+# import modules
 import re
 import numpy as np
 import pandas as pd
 import joblib
 from periodictable import elements
 from sklearn.base import BaseEstimator, RegressorMixin, clone
+
 
 # === Define the expected feature order ===
 features = ['mean_atomic_mass', 'wtd_mean_atomic_mass', 'gmean_atomic_mass',
@@ -107,6 +106,7 @@ features = ['mean_atomic_mass', 'wtd_mean_atomic_mass', 'gmean_atomic_mass',
        'mass_density_ratio', 'affinity_valence_ratio',
        'log_thermal_conductivity']
 
+
 # === Parse Chemical Formula ===
 def parse_formula(formula):
     """Convert a chemical formula into a dictionary of elements and their counts."""
@@ -117,6 +117,7 @@ def parse_formula(formula):
         count = int(count) if count else 1
         composition[elem] = composition.get(elem, 0) + count
     return composition
+
 
 # === Compute Statistical Features ===
 def compute_features(values, proportions):
@@ -147,15 +148,15 @@ def compute_features(values, proportions):
     return np.array([mean_y, wtd_mean_y, gmean_y, wtd_gmean_y, entropy_y,
                      wtd_entropy_y, range_y, wtd_range_y, std_y, wtd_std_y])
 
-# === Generate Features from Formula ===
+
 def generate_features_from_formula(formula):
-    """Extract the 99 features needed for model prediction from a chemical formula."""
-    
-    # Parse formula into element composition
+    """Generate the 99 features required for model prediction from a chemical formula."""
+
+    # === Step 1: Parse the Chemical Formula ===
     composition = parse_formula(formula)
     total_atoms = sum(composition.values())
 
-    # Define atomic properties to use
+    # === Step 2: Compute the Original 81 Features ===
     properties = [
         "mass", "ionization", "radius", "density", "electron_affinity",
         "fusion_heat", "thermal_conductivity", "valence"
@@ -177,27 +178,35 @@ def generate_features_from_formula(formula):
 
         computed_features.extend(compute_features(values, proportions))
 
-    feature_dict = dict(zip(features[:len(computed_features)], computed_features))
+    # feature dictionary creation**
+    feature_dict = {name: value for name, value in zip(features[:len(computed_features)], computed_features)}
 
-    # Compute additional engineered features
-    feature_dict["mass_density_ratio"] = feature_dict["mean_atomic_mass"] / (feature_dict["wtd_mean_Density"] + 1e-9)
-    feature_dict["affinity_valence_ratio"] = feature_dict["wtd_mean_ElectronAffinity"] / (feature_dict["wtd_mean_Valence"] + 1e-9)
-    feature_dict["log_thermal_conductivity"] = np.log1p(feature_dict["range_ThermalConductivity"])
-
-    # Add one-hot encoded elemental features (ensure correct order)
-    for elem in features[56:-3]:  # Extract only element presence features
+    # === Step 3: Generate Elemental Features ===
+    for elem in features[56:-3]:  # elements selected using the order from unique_m.csv
         feature_dict[elem] = composition.get(elem, 0)
 
-    feature_vector = np.array([feature_dict[feature] for feature in features]).reshape(1, -1)
+    # === Step 4: Compute the Three New Engineered Features ===
+    mean_density = feature_dict.get("mean_Density", 1)
+    wtd_mean_density = feature_dict.get("wtd_mean_Density", 1)
+    mean_atomic_mass = feature_dict.get("mean_atomic_mass", 1)
+    wtd_mean_electron_affinity = feature_dict.get("wtd_mean_ElectronAffinity", 1)
+    wtd_mean_valence = feature_dict.get("wtd_mean_Valence", 1)
+    range_thermal_conductivity = feature_dict.get("range_ThermalConductivity", 1)
 
-    # print(f"Generated {feature_vector.shape[1]} features (expected 99)")
+    feature_dict["mass_density_ratio"] = mean_atomic_mass / (wtd_mean_density + 1e-9)
+    feature_dict["affinity_valence_ratio"] = wtd_mean_electron_affinity / (wtd_mean_valence + 1e-9)
+    feature_dict["log_thermal_conductivity"] = np.log1p(range_thermal_conductivity)
 
-    # Test the number of features
+    # === Step 5: Drop All Unused Features and Ensure Correct Order ===
+    final_feature_dict = {feature: feature_dict.get(feature, 0) for feature in features}
+
+    # Convert to DataFrame (fixes the LightGBM feature name warning)
+    feature_vector = pd.DataFrame([final_feature_dict])
+
+    print(f"Generated {feature_vector.shape[1]} features (expected 99)")
+
     if feature_vector.shape[1] != 99:
         raise ValueError(f"Feature vector has {feature_vector.shape[1]} features, but expected 99")
-
-    # Convert the feature dictionary into a DataFrame (fix for LightGBM warning)
-    feature_vector = pd.DataFrame([feature_dict], columns=features)
 
     return feature_vector
 
@@ -221,6 +230,7 @@ class WeightedBlendRegressor(BaseEstimator, RegressorMixin):
         pred2 = self.model2_.predict(X)
         return self.weight1 * pred1 + (1 - self.weight1) * pred2
 
+
 # === Load the Model ===
 model_path = "./model/final_ensemble_model.pkl"
 try:
@@ -234,9 +244,10 @@ except AttributeError as e:
     print("Ensure that 'WeightedBlendRegressor' is defined in the script before loading the model.")
     exit()
 
-# Main function:
 
+# Main function:
 def main():
+    # prompt user for formula
     formula = input("\nEnter a chemical formula: ").strip()
     if not formula:
         print("\nNo formula provided. Exiting.\n")

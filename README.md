@@ -54,7 +54,7 @@ run_author_model.py - script to evaluate newly found blended model
 
 tccreate.py - script to create, train and save final model to ./model
 
-tcpredict.py - script to make Tc prediction (in progress - minimally functional - not validated!!!)
+tcpredict.py - script to make Tc prediction (in progress - functional but not validated!!!)
 
 
 ## Discussion of project:
@@ -82,6 +82,6 @@ Remove no longer needed models and modules.
 
 Update and simplify notebooks with clear path to the best models, hyperparameters and weights.
 
-Create script to input chemical forumula, create needed features exactly as done with the training data, make and return prediction.
+Validate tcpredictor's feature generator against the original R code
 
 Update readme to be more clear and consistent with the finished project.
