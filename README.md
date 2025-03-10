@@ -16,7 +16,7 @@ UV, Venv, Git, GitHub, Python 3.12, Jupyter Notebooks
 
 ### Modules:
 
-Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, Requests, PyTest
+Pandas, Matplotlib, Seaborn, SKLearn, XGBoost, LightGBM, CatBoost, TensorFlow, Optuna, Requests, Periodictable, PyTest
 
 
 ## Organization of project:
@@ -54,7 +54,7 @@ run_author_model.py - script to evaluate newly found blended model
 
 tccreate.py - script to create, train and save final model to ./model
 
-tcpredict.py - script to make Tc prediction (in progress - not functional)
+tcpredict.py - script to make Tc prediction (in progress - minimally functional - not validated!!!)
 
 
 ## Discussion of project:
